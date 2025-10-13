@@ -1,47 +1,191 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StreamMax - Seu Streaming Favorito</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StreamMax - Seu streaming vitalício</title>
   <style>
-    /* --- estilos omitidos para brevidade (iguais aos do seu código) --- */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0b0b0b;
+      color: #f0f0f0;
+      text-align: center;
+    }
+
+    header {
+      background-color: #111;
+      padding: 15px;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #00ff9d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 2px solid #00ff9d;
+    }
+
+    .hero {
+      padding: 50px 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      color: #fff;
+    }
+
+    .hero h1 span {
+      color: #ff4d4d;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #ccc;
+      margin: 20px 0;
+    }
+
+    .price {
+      font-size: 1.4rem;
+      margin: 25px 0;
+    }
+
+    .price .old-price {
+      text-decoration: line-through;
+      color: #888;
+      margin-right: 8px;
+    }
+
+    .cta-button {
+      background: linear-gradient(90deg, #ff4d4d, #ff1b6b);
+      color: white;
+      border: none;
+      padding: 15px 35px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(255, 77, 77, 0.5);
+    }
+
+    .cta-button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(90deg, #ff1b6b, #ff4d4d);
+    }
+
+    .features {
+      background-color: #141414;
+      padding: 40px 20px;
+      text-align: left;
+      max-width: 900px;
+      margin: 40px auto;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 255, 157, 0.2);
+    }
+
+    .feature {
+      margin-bottom: 25px;
+    }
+
+    .feature h3 {
+      color: #00ff9d;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background-color: #0d0d0d;
+      color: #aaa;
+      text-align: center;
+      padding: 25px 10px;
+      font-size: 14px;
+      border-top: 1px solid #222;
+    }
+
+    footer a {
+      color: #00ff9d;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    footer a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    .payment-icons {
+      margin-top: 10px;
+    }
+
+    .payment-icons img {
+      height: 30px;
+      margin: 0 8px;
+      opacity: 0.8;
+    }
   </style>
 </head>
 <body>
   <header>
-    ⚡ Oferta por tempo limitado! Seu acesso vitalício termina em: <span id="timer">14:00</span> ⏰
+    ⚡ Oferta por tempo limitado! Seu acesso vitalício termina em:
+    <span id="timer">14:00</span> ⏰
   </header>
 
   <section class="hero">
-    <h1>Assista tudo com o <span style="color:#e50914;">StreamMax</span></h1>
-    <p>Filmes, séries e documentários ilimitados em um só lugar. Tenha acesso vitalício e aproveite o melhor do entretenimento sem mensalidades!</p>
+    <h1>Assista tudo com o <span>StreamMax</span></h1>
+    <p>Filmes, séries e documentários ilimitados em um só lugar. Tenha acesso <strong>vitalício</strong> e aproveite o melhor do entretenimento sem mensalidades!</p>
 
-    <p class="price">
-      De <span class="old-price">R$179,90</span> por apenas <strong>R$16,90</strong> 💥
-    </p>
+    <p class="price">De <span class="old-price">R$179,90</span> por apenas <strong>R$16,90</strong> 🔥</p>
 
     <button class="cta-button" onclick="window.location.href='https://pay.kiwify.com.br/UfMzsR5'">
       🛒 Compre agora e não perca a promoção!
     </button>
   </section>
 
-  <!-- (restante do código permanece idêntico ao seu, incluindo features, depoimentos, garantia e rodapé) -->
+  <section class="features">
+    <div class="feature">
+      <h3>🎬 Catálogo Premium</h3>
+      <p>Tenha acesso a milhares de filmes, séries e lançamentos exclusivos atualizados semanalmente.</p>
+    </div>
+
+    <div class="feature">
+      <h3>💎 Acesso Vitalício</h3>
+      <p>Pague uma única vez e tenha acesso para sempre. Sem taxas ocultas, sem mensalidades.</p>
+    </div>
+
+    <div class="feature">
+      <h3>⚙️ Qualidade e estabilidade</h3>
+      <p>Streaming rápido, leve e compatível com todos os dispositivos — TVs, PCs e smartphones.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 StreamMax. Todos os direitos reservados.</p>
+    <a href="termos.html">Termos de Uso</a> •
+    <a href="privacidade.html">Política de Privacidade</a>
+    <div class="payment-icons">
+      <img src="#" alt="Pix">
+      <img src="#" alt="Visa">
+      <img src="#" alt="Mastercard">
+      <img src="#" alt="Boleto">
+    </div>
+  </footer>
 
   <script>
-    // Atualiza automaticamente o ano no rodapé
-    document.getElementById("ano").textContent = new Date().getFullYear();
+    // Cronômetro de 14 minutos
+    let time = 14 * 60; 
+    const timerElement = document.getElementById("timer");
 
-    // Cronômetro regressivo de 14 minutos
-    let time = 14 * 60;
-    const timerElement = document.getElementById('timer');
-
-    const countdown = setInterval(() => {
+    const interval = setInterval(() => {
       const minutes = Math.floor(time / 60);
       const seconds = time % 60;
-      timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-      if (time <= 0) clearInterval(countdown);
+      timerElement.textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
       time--;
+
+      if (time < 0) {
+        clearInterval(interval);
+        timerElement.textContent = "00:00";
+      }
     }, 1000);
   </script>
 </body>
