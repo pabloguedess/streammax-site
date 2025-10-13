@@ -1,192 +1,389 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StreamMax - Seu streaming vitalício</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StreamMax — Oferta Vitalícia</title>
   <style>
+    :root {
+      --bg: #0f0f14;
+      --card: #121217;
+      --accent1: #e50914;
+      --accent2: #8a2be2;
+      --muted: #9aa0a6;
+      --glass: rgba(255,255,255,0.04);
+      --radius: 14px;
+      font-family: "Poppins", sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #0b0b0b;
-      color: #f0f0f0;
+      background:
+        radial-gradient(800px 400px at 90% 10%, rgba(138,43,226,0.08), transparent 8%),
+        radial-gradient(600px 300px at 10% 90%, rgba(229,9,20,0.05), transparent 10%),
+        var(--bg);
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.45;
+      padding: 32px 16px;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: white;
+    }
+    .logo .badge {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    }
+    .logo span {
+      font-weight: 600;
+      font-size: 18px;
+      letter-spacing: 0.2px;
+    }
+    .promo-timer {
+      background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      padding: 8px 14px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .promo-timer .label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .timer-box {
+      font-weight: 700;
+      font-size: 16px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, rgba(138,43,226,0.12), rgba(229,9,20,0.06));
+      color: #fff;
+      min-width: 96px;
       text-align: center;
     }
-
-    header {
-      background-color: #111;
-      padding: 15px;
-      font-weight: bold;
-      font-size: 1rem;
-      color: #00ff9d;
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: 0 10px 40px rgba(2,6,23,0.7);
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .kicker {
+      color: var(--accent1);
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+    h1 {
+      font-size: 32px;
+      line-height: 1.05;
+      margin-bottom: 12px;
+      letter-spacing: -0.4px;
+    }
+    p.lead {
+      color: var(--muted);
+      margin-bottom: 18px;
+      font-size: 15px;
+    }
+    .price-row {
       display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .price-new {
+      font-size: 32px;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .price-old {
+      color: var(--muted);
+      text-decoration: line-through;
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .price-sublabel {
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      color: white;
+      padding: 12px 18px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 30px rgba(138,43,226,0.12);
+      transition: transform .12s ease, box-shadow .12s ease, opacity .12s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(138,43,226,0.16);
+    }
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.06);
+      color: var(--muted);
+      padding: 10px 14px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .features {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .feature {
+      background: var(--glass);
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .mock {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--radius);
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
       justify-content: center;
+    }
+    .mock .screen {
+      width: 100%;
+      height: 260px;
+      border-radius: 10px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.45)),
+        url('https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=1200&q=60') center/cover no-repeat;
+      display: flex;
+      align-items: flex-end;
+      padding: 18px;
+      box-shadow: inset 0 -30px 60px rgba(0,0,0,0.6);
+    }
+    .mock .screen h3 {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+    .mock .meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .trust {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      margin: 22px 0 34px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .trust span {
+      display: flex;
       align-items: center;
       gap: 8px;
-      border-bottom: 2px solid #00ff9d;
+      background: rgba(255,255,255,0.02);
+      padding: 8px 12px;
+      border-radius: 10px;
     }
-
-    .hero {
-      padding: 50px 20px;
-      max-width: 800px;
-      margin: auto;
+    #checkout {
+      margin-top: 20px;
+      padding: 22px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.03);
     }
-
-    .hero h1 {
-      font-size: 2.5rem;
-      color: #fff;
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; }
+      .mock .screen { height: 180px; }
     }
-
-    .hero h1 span {
-      color: #ff4d4d;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      color: #ccc;
-      margin: 20px 0;
-    }
-
-    .price {
-      font-size: 1.4rem;
-      margin: 25px 0;
-    }
-
-    .price .old-price {
-      text-decoration: line-through;
-      color: #888;
-      margin-right: 8px;
-    }
-
-    .cta-button {
-      background: linear-gradient(90deg, #ff4d4d, #ff1b6b);
-      color: white;
-      border: none;
-      padding: 15px 35px;
-      font-size: 1.1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 15px rgba(255, 77, 77, 0.5);
-    }
-
-    .cta-button:hover {
-      transform: scale(1.05);
-      background: linear-gradient(90deg, #ff1b6b, #ff4d4d);
-    }
-
-    .features {
-      background-color: #141414;
-      padding: 40px 20px;
-      text-align: left;
-      max-width: 900px;
-      margin: 40px auto;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 255, 157, 0.2);
-    }
-
-    .feature {
-      margin-bottom: 25px;
-    }
-
-    .feature h3 {
-      color: #00ff9d;
-      margin-bottom: 10px;
-    }
-
-    footer {
-      background-color: #0d0d0d;
-      color: #aaa;
-      text-align: center;
-      padding: 25px 10px;
-      font-size: 14px;
-      border-top: 1px solid #222;
-    }
-
-    footer a {
-      color: #00ff9d;
-      text-decoration: none;
-      margin: 0 8px;
-    }
-
-    footer a:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
-
-    .payment-icons {
-      margin-top: 10px;
-    }
-
-    .payment-icons img {
-      height: 30px;
-      margin: 0 8px;
-      opacity: 0.8;
+    @media (max-width: 520px) {
+      header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      h1 { font-size: 24px; }
     }
   </style>
 </head>
 <body>
-  <header>
-    ⚡ Oferta por tempo limitado! Seu acesso vitalício termina em:
-    <span id="timer">14:00</span> ⏰
-  </header>
+  <div class="container">
+    <header>
+      <a class="logo" href="#">
+        <div class="badge">SM</div>
+        <span>StreamMax</span>
+      </a>
+      <div class="promo-timer">
+        <div class="label">Tempo restante da oferta</div>
+        <div class="timer-box" id="timer">14:00</div>
+      </div>
+    </header>
 
-  <section class="hero">
-    <h1>Assista tudo com o <span>StreamMax</span></h1>
-    <p>Filmes, séries e documentários ilimitados em um só lugar. Tenha acesso <strong>vitalício</strong> e aproveite o melhor do entretenimento sem mensalidades!</p>
+    <main>
+      <section class="hero-card hero">
+        <div class="hero-card">
+          <div class="kicker">Oferta Vitalícia</div>
+          <h1>Acesso vitalício ao melhor app de streaming de filmes e séries.</h1>
+          <p class="lead">Assista sem limites, para sempre. Milhares de títulos, lançamentos exclusivos e atualizações constantes. Uma única compra e entretenimento garantido para toda a vida!</p>
 
-    <p class="price">De <span class="old-price">R$179,90</span> por apenas <strong>R$16,90</strong> 🔥</p>
+          <div class="price-row">
+            <div>
+              <div class="price-new">R$16,90</div>
+              <div class="price-sublabel">acesso vitalício — oferta por tempo limitado</div>
+            </div>
+            <div>
+              <div class="price-old">R$179,90</div>
+              <div class="price-sublabel">preço original</div>
+            </div>
+          </div>
 
-    <button class="cta-button" onclick="window.location.href='https://pay.kiwify.com.br/UfMzsR5'">
-      🛒 Compre agora e não perca a promoção!
-    </button>
-  </section>
+          <div class="cta-row">
+            <a class="btn-primary" href="https://pay.kiwify.com.br/UfMzsR5" target="_blank">
+              🎬 Compre agora e não perca a promoção!
+            </a>
+          </div>
 
-  <section class="features">
-    <div class="feature">
-      <h3>🎬 Catálogo Premium</h3>
-      <p>Tenha acesso a milhares de filmes, séries e lançamentos exclusivos atualizados semanalmente.</p>
+          <div class="features">
+            <div class="feature">Acesso vitalício</div>
+            <div class="feature">Sem mensalidades</div>
+            <div class="feature">4K HDR</div>
+            <div class="feature">Sem anúncios</div>
+          </div>
+
+          <div class="trust" style="justify-content:flex-start">
+            <span>✔️ Garantia de 7 dias</span>
+            <span>✔️ Suporte 24/7</span>
+            <span>✔️ Catálogo vasto</span>
+          </div>
+        </div>
+
+        <aside class="mock">
+          <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
+            <div style="font-weight:700">Preview</div>
+            <div style="font-size:13px; color:var(--muted)">Disponível em qualquer dispositivo</div>
+          </div>
+          <div class="screen">
+            <div style="color:white;">
+              <h3>Em destaque: “No Limite da Aventura”</h3>
+              <div class="meta">Filme • Aventura • 2h 12m</div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="checkout">
+        <div class="inner">
+          <div class="summary">
+            <h3>Seu acesso vitalício</h3>
+            <div class="price-big" id="checkout-price">R$16,90</div>
+            <div style="color:var(--muted); font-size:13px;">De <s>R$179,90</s> por tempo limitado</div>
+          </div>
+          <div style="flex:1; min-width:260px; max-width:520px">
+            <form id="fake-checkout-form" onsubmit="event.preventDefault(); handlePurchase();">
+              <div style="display:flex; gap:8px; margin-bottom:8px; flex-wrap:wrap;">
+                <input name="name" required placeholder="Nome completo" style="flex:1; padding:12px; border-radius:10px; background:transparent; border:1px solid rgba(255,255,255,0.04); color:white;">
+                <input name="email" type="email" required placeholder="Email" style="flex:1; padding:12px; border-radius:10px; background:transparent; border:1px solid rgba(255,255,255,0.04); color:white;">
+              </div>
+              <div style="display:flex; gap:12px; align-items:center; margin-bottom:10px;">
+                <button id="checkout-buy" class="btn-primary" type="submit">Finalizar compra</button>
+                <div id="checkout-note" style="color:var(--muted); font-size:13px">Pagamento seguro • Ativação instantânea</div>
+              </div>
+              <div style="font-size:12px; color:var(--muted);">
+                Ao clicar em “Finalizar compra”, você será redirecionado ao pagamento seguro.
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <p>© <span id="ano"></span> StreamMax. Todos os direitos reservados.</p>
+        <div>
+          <a href="termos.html">Termos de Uso</a> ·
+          <a href="privacidade.html">Política de Privacidade</a>
+        </div>
+        <div class="payment-icons">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="24" viewBox="0 0 512 512" fill="#00BFA5">
+            <path d="M365.7 102.4c-9.4-9.4-24.6-9.4-33.9 0l-..."></path>
+          </svg>
+          <!-- outros ícones -->
+        </div>
+      </footer>
     </div>
 
-    <div class="feature">
-      <h3>💎 Acesso Vitalício</h3>
-      <p>Pague uma única vez e tenha acesso para sempre. Sem taxas ocultas, sem mensalidades.</p>
-    </div>
+    <script>
+      // Atualiza ano automaticamente
+      document.getElementById("ano").textContent = new Date().getFullYear();
 
-    <div class="feature">
-      <h3>⚙️ Qualidade e estabilidade</h3>
-      <p>Streaming rápido, leve e compatível com todos os dispositivos — TVs, PCs e smartphones.</p>
-    </div>
-  </section>
+      // Cronômetro regressivo
+      (function(){
+        let remaining = 14 * 60;
+        const timerEl = document.getElementById("timer");
+        const tick = setInterval(() => {
+          if (remaining <= 0) {
+            clearInterval(tick);
+            timerEl.textContent = "EXPIRADA";
+            return;
+          }
+          const m = Math.floor(remaining / 60).toString().padStart(2, "0");
+          const s = (remaining % 60).toString().padStart(2, "0");
+          timerEl.textContent = `${m}:${s}`;
+          remaining--;
+        }, 1000);
+      })();
 
-  <footer>
-    <p>© 2025 StreamMax. Todos os direitos reservados.</p>
-    <a href="termos.html">Termos de Uso</a> •
-    <a href="privacidade.html">Política de Privacidade</a>
-    <div class="payment-icons">
-      <img src="#" alt="Pix">
-      <img src="#" alt="Visa">
-      <img src="#" alt="Mastercard">
-      <img src="#" alt="Boleto">
-    </div>
-  </footer>
-
-  <script>
-    // Cronômetro de 14 minutos
-    let time = 14 * 60; 
-    const timerElement = document.getElementById("timer");
-
-    const interval = setInterval(() => {
-      const minutes = Math.floor(time / 60);
-      const seconds = time % 60;
-      timerElement.textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-      time--;
-
-      if (time < 0) {
-        clearInterval(interval);
-        timerElement.textContent = "00:00";
+      // Fake handlePurchase (faça redirect real no production)
+      function handlePurchase(){
+        alert("Redirecionando ao checkout seguro...");
+        window.location.href = "https://pay.kiwify.com.br/UfMzsR5";
       }
-    }, 1000);
-  </script>
+    </script>
 </body>
 </html>
