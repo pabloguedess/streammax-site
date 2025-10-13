@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finalizar Compra - StreamMax</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    body {
+      background: radial-gradient(circle at center, #1a1a1a 0%, #0d0d0d 100%);
+      color: #f5f5f5;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #141414;
+      padding: 15px 0;
+      text-align: center;
+      color: #00ff9d;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .timer {
+      font-weight: bold;
+      color: #ff4757;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 60px auto;
+      background: #161616;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 0 25px rgba(0, 255, 157, 0.08);
+      text-align: center;
+    }
+
+    .logo {
+      width: 140px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: #00ff9d;
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: #ccc;
+      margin-bottom: 20px;
+      line-height: 1.6em;
+    }
+
+    .benefits {
+      text-align: left;
+      margin-top: 30px;
+    }
+
+    .benefits li {
+      margin-bottom: 10px;
+      color: #eee;
+    }
+
+    .highlight {
+      color: #00ff9d;
+      font-weight: bold;
+    }
+
+    button {
+      width: 100%;
+      background: #ff4757;
+      border: none;
+      color: #fff;
+      padding: 16px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff5e70;
+    }
+
+    .secure {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #999;
+    }
+
+    .testimonial {
+      font-style: italic;
+      color: #aaa;
+      margin-top: 25px;
+      border-left: 3px solid #00ff9d;
+      padding-left: 12px;
+      text-align: left;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding: 25px;
+      color: #888;
+      font-size: 14px;
+      border-top: 1px solid #222;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 20px;
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Oferta válida por <span class="timer" id="timer">10:00</span> minutos!
+  </header>
+
+  <div class="container">
+    <img src="logo.png" alt="StreamMax" class="logo">
+    <h1>Finalize sua Compra</h1>
+    <p>Você está prestes a garantir acesso <span class="highlight">vitalício</span> ao melhor app de filmes e séries por apenas <span class="highlight">R$16,90</span>.</p>
+
+    <ul class="benefits">
+      <li>🎬 Acesso vitalício e ilimitado</li>
+      <li>📱 Compatível com qualquer dispositivo</li>
+      <li>🚫 Sem mensalidades ou taxas ocultas</li>
+      <li>🔒 Pagamento 100% seguro via Kiwify</li>
+      <li>💰 Garantia total de 7 dias</li>
+    </ul>
+
+    <button onclick="window.location.href='https://pay.kiwify.com.br/UfMzsR5'">
+      💳 Finalizar Pagamento Agora
+    </button>
+
+    <p class="secure">🔐 Transação segura via <strong>Kiwify</strong></p>
+
+    <div class="testimonial">
+      “Achei incrível! O acesso é rápido e o conteúdo é ótimo. Valeu cada centavo.” — <strong>Juliana M.</strong>
+    </div>
+  </div>
+
+  <footer>
+    © <span id="ano"></span> StreamMax. Todos os direitos reservados.
+  </footer>
+
+  <script>
+    // Cronômetro regressivo de 10 minutos
+    let tempo = 10 * 60; // segundos
+
+    const timerEl = document.getElementById("timer");
+    const intervalo = setInterval(() => {
+      const minutos = Math.floor(tempo / 60);
+      const segundos = tempo % 60;
+      timerEl.textContent = 
+        `${minutos}:${segundos < 10 ? "0" + segundos : segundos}`;
+      tempo--;
+
+      if (tempo < 0) {
+        clearInterval(intervalo);
+        timerEl.textContent = "00:00";
+      }
+    }, 1000);
+
+    // Atualiza o ano no rodapé
+    document.getElementById("ano").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
