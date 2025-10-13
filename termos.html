@@ -3,73 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Termos de Uso - StreamMax</title>
+  <title>Termos de Uso | StreamMax</title>
   <style>
     body {
-      background-color: #0f0f0f;
-      color: #eee;
-      font-family: 'Poppins', sans-serif;
+      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 40px 20px;
-      line-height: 1.7em;
+      padding: 0;
+      background-color: #0d0d0d;
+      color: #fff;
+      line-height: 1.6;
     }
-    h1 {
-      color: #00ff9d;
+    header {
+      background-color: #e50914;
       text-align: center;
-      margin-bottom: 30px;
+      padding: 20px;
+      font-size: 1.5em;
+      font-weight: bold;
     }
-    h2 {
-      color: #ff4757;
-      margin-top: 25px;
+    main {
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
     }
     a {
-      color: #00ff9d;
+      color: #e50914;
       text-decoration: none;
     }
-    a:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
     footer {
+      background-color: #111;
+      color: #aaa;
       text-align: center;
-      margin-top: 60px;
-      padding-top: 20px;
+      padding: 20px;
+      font-size: 0.9em;
       border-top: 1px solid #222;
-      color: #ccc;
-      font-size: 14px;
+    }
+    .back-home {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #e50914;
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .back-home:hover {
+      background: #b00610;
     }
   </style>
 </head>
 <body>
-  <h1>Termos de Uso - StreamMax</h1>
+  <header>📄 Termos de Uso - StreamMax</header>
 
-  <p>Bem-vindo ao StreamMax! Ao utilizar nossa plataforma, você concorda com os seguintes Termos de Uso. Leia atentamente antes de realizar qualquer compra ou uso do serviço.</p>
+  <main>
+    <h2>1. Aceitação dos Termos</h2>
+    <p>Ao acessar e utilizar o StreamMax, você concorda em cumprir estes Termos de Uso e todas as leis e regulamentos aplicáveis. Caso não concorde com qualquer termo, não utilize nossos serviços.</p>
 
-  <h2>1. Aceitação dos Termos</h2>
-  <p>Ao acessar e utilizar o StreamMax, você concorda em cumprir e estar legalmente vinculado a estes Termos de Uso. Caso não concorde, por favor, não utilize o serviço.</p>
+    <h2>2. Licença de Uso</h2>
+    <p>O conteúdo oferecido no StreamMax é protegido por direitos autorais e é de uso exclusivo do assinante. O compartilhamento, redistribuição ou revenda sem autorização é proibido.</p>
 
-  <h2>2. Descrição do Serviço</h2>
-  <p>O StreamMax oferece acesso a conteúdos digitais de filmes e séries por meio de uma plataforma online. O acesso vitalício é concedido após a confirmação do pagamento, sem mensalidades recorrentes.</p>
+    <h2>3. Responsabilidade do Usuário</h2>
+    <p>Você é responsável pelas atividades realizadas em sua conta e pelo cumprimento das políticas de uso. É proibido utilizar o serviço para fins ilegais ou prejudiciais.</p>
 
-  <h2>3. Uso Permitido</h2>
-  <p>O usuário se compromete a utilizar o serviço apenas para fins pessoais e não comerciais, sendo proibido o compartilhamento de credenciais ou revenda do acesso.</p>
+    <h2>4. Modificações nos Termos</h2>
+    <p>O StreamMax reserva-se o direito de alterar estes Termos a qualquer momento, mediante atualização nesta página.</p>
 
-  <h2>4. Propriedade Intelectual</h2>
-  <p>Todo o conteúdo disponível na plataforma é protegido por direitos autorais e outras leis de propriedade intelectual. É proibida a cópia, reprodução ou distribuição sem autorização prévia.</p>
+    <h2>5. Contato</h2>
+    <p>Para dúvidas sobre nossos Termos de Uso, entre em contato pelo nosso suporte oficial.</p>
 
-  <h2>5. Limitação de Responsabilidade</h2>
-  <p>O StreamMax não se responsabiliza por interrupções temporárias, falhas de acesso ou indisponibilidade do serviço devido a manutenção ou problemas técnicos de terceiros.</p>
-
-  <h2>6. Alterações</h2>
-  <p>Reservamo-nos o direito de alterar estes Termos a qualquer momento, sendo a versão atualizada sempre publicada nesta página.</p>
+    <a href="index.html" class="back-home">⬅ Voltar para a Página Inicial</a>
+  </main>
 
   <footer>
     <p>© <span id="ano"></span> StreamMax. Todos os direitos reservados.</p>
-    <a href="index.html">← Voltar à página inicial</a>
+    <script>
+      document.getElementById("ano").textContent = new Date().getFullYear();
+    </script>
   </footer>
-
-  <script>
-    document.getElementById("ano").textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
