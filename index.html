@@ -8,17 +8,17 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #0d0d0d;
+      background-color: #121212; /* Fundo principal */
       color: #fff;
       text-align: center;
     }
 
     header {
-      background-color: #0d0d0d;
+      background-color: #1a1a1a;
       color: #ff4040;
       font-weight: bold;
       padding: 10px;
-      border-bottom: 1px solid #111;
+      border-bottom: 2px solid #111;
     }
 
     header span {
@@ -61,6 +61,7 @@
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
+      text-decoration: none;
     }
 
     .btn:hover {
@@ -74,15 +75,22 @@
       justify-content: center;
       gap: 20px;
       margin-top: 60px;
-      padding: 20px;
+      padding: 40px 20px;
+      background-color: #1a1a1a; /* seção um pouco mais clara */
     }
 
     .card {
-      background-color: #1a1a1a;
-      border-radius: 10px;
+      background-color: #202020; /* cartões mais claros */
+      border-radius: 12px;
       padding: 20px;
       width: 250px;
-      box-shadow: 0 0 10px rgba(0, 255, 128, 0.2);
+      box-shadow: 0 0 10px rgba(0, 255, 128, 0.15);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px rgba(0, 255, 128, 0.3);
     }
 
     .card h3 {
@@ -91,7 +99,7 @@
     }
 
     .depoimentos {
-      background-color: #0d0d0d;
+      background-color: #121212;
       padding: 50px 20px;
     }
 
@@ -109,12 +117,18 @@
     }
 
     .depoimento {
-      background-color: #1a1a1a;
+      background-color: #202020;
       border-radius: 10px;
       width: 300px;
       padding: 20px;
       color: #ddd;
       font-style: italic;
+      transition: 0.3s;
+    }
+
+    .depoimento:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 12px rgba(255, 64, 64, 0.2);
     }
 
     .depoimento span {
@@ -126,7 +140,7 @@
     }
 
     .seguranca {
-      background-color: #0d0d0d;
+      background-color: #1a1a1a;
       padding: 40px 20px;
       border-top: 2px solid #00ff80;
     }
