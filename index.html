@@ -191,6 +191,16 @@
       }
     }
   </style>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JX1NNHCR2B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JX1NNHCR2B');
+</script>
+
 </head>
 <body>
 
@@ -207,7 +217,19 @@
       De <s>R$179,90</s> por apenas <strong>R$16,90 ✴️</strong>
     </div>
 
-    <a href="https://payment.ticto.app/OE4B7E364?event=PageView&product_id=98537&offer_code=OE4B7E364&currency=BRL&payment_method=credit_card&visitor_id=" class="btn">🎁 Compre agora e não perca a promoção!</a>
+    <a 
+  href="https://payment.ticto.app/OE4B7E364?event=PageView&product_id=98537&offer_code=OE4B7E364&currency=BRL&payment_method=credit_card&visitor_id="
+  class="btn"
+  onclick="gtag('event', 'clique_compre_agora', { 
+    'event_category': 'Checkout', 
+    'event_label': 'Botao_Compre_Agora_Ticto' 
+  });"
+  target="_blank" 
+  rel="noopener noreferrer"
+>
+  🎁 Compre agora e não perca a promoção!
+</a>
+
 
     <div class="beneficios">
       <div class="card">
