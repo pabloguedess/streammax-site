@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compra Confirmada - StreamMax</title>
+
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <style>
+    body {
+      margin: 0;
+      background-color: #0d0d0d;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      color: #00ff80;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #ccc;
+      font-size: 1.1em;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      background-color: #ff2020;
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #e60000;
+      transform: scale(1.05);
+    }
+
+    .check {
+      font-size: 3em;
+      color: #00ff80;
+      margin-bottom: 20px;
+    }
+  </style>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JX1NNHCR2B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-JX1NNHCR2B');
+
+    // Evento de compra confirmada
+    gtag('event', 'purchase', {
+      'event_category': 'Checkout',
+      'event_label': 'Compra_Confirmada_Ticto',
+      'value': 16.90,
+      'currency': 'BRL'
+    });
+  </script>
+</head>
+
+<body>
+  <div class="check">✅</div>
+  <h1>Compra Confirmada!</h1>
+  <p>Obrigado por adquirir o <strong>StreamMax</strong> 🎬</p>
+  <p>Seu acesso foi liberado e as instruções foram enviadas ao seu e-mail.</p>
+
+  <a href="index.html" class="btn">Voltar para a Página Inicial</a>
+</body>
+</html>
+
