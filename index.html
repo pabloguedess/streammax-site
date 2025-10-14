@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <!-- Favicon padrão -->
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-
-<!-- Para navegadores modernos -->
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-
-<!-- Caso use PNG -->
-<link rel="icon" type="image/png" href="favicon.png">
-
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" href="favicon.png">
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StreamMax - Filmes, Séries e Documentários Ilimitados</title>
+
   <style>
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #121212; /* Fundo principal */
+      background-color: #121212;
       color: #fff;
       text-align: center;
     }
@@ -86,11 +82,11 @@
       gap: 20px;
       margin-top: 60px;
       padding: 40px 20px;
-      background-color: #1a1a1a; /* seção um pouco mais clara */
+      background-color: #1a1a1a;
     }
 
     .card {
-      background-color: #202020; /* cartões mais claros */
+      background-color: #202020;
       border-radius: 12px;
       padding: 20px;
       width: 250px;
@@ -191,19 +187,20 @@
       }
     }
   </style>
+
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JX1NNHCR2B"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JX1NNHCR2B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  gtag('config', 'G-JX1NNHCR2B');
-</script>
-
+    // Configuração principal
+    gtag('config', 'G-JX1NNHCR2B');
+  </script>
 </head>
-<body>
 
+<body>
   <header>
     ⚡ Oferta por tempo limitado! Seu acesso vitalício termina em: 
     <span id="timer">14:00</span> ⏰
@@ -217,19 +214,20 @@
       De <s>R$179,90</s> por apenas <strong>R$16,90 ✴️</strong>
     </div>
 
+    <!-- Botão com evento de clique -->
     <a 
-  href="https://payment.ticto.app/OE4B7E364?event=PageView&product_id=98537&offer_code=OE4B7E364&currency=BRL&payment_method=credit_card&visitor_id="
-  class="btn"
-  onclick="gtag('event', 'clique_compre_agora', { 
-    'event_category': 'Checkout', 
-    'event_label': 'Botao_Compre_Agora_Ticto' 
-  });"
-  target="_blank" 
-  rel="noopener noreferrer"
->
-  🎁 Compre agora e não perca a promoção!
-</a>
-
+      href="https://payment.ticto.app/OE4B7E364?event=PageView&product_id=98537&offer_code=OE4B7E364&currency=BRL&payment_method=credit_card&visitor_id="
+      class="btn"
+      onclick="gtag('event', 'Clique_Compre_Agora', { 
+        'event_category': 'Checkout', 
+        'event_label': 'Botao_Compre_Agora_Ticto',
+        'value': 1
+      });"
+      target="_blank" 
+      rel="noopener noreferrer"
+    >
+      🎁 Compre agora e não perca a promoção!
+    </a>
 
     <div class="beneficios">
       <div class="card">
@@ -298,6 +296,17 @@
       timer.textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
       if (time > 0) time--;
     }, 1000);
+
+    // Evento de conversão de compra confirmada
+    // Este código deve ser ativado na página de "sucesso" da Ticto (caso você tenha callback)
+    if (window.location.href.includes("sucesso") || window.location.href.includes("thankyou")) {
+      gtag('event', 'purchase', {
+        'event_category': 'Checkout',
+        'event_label': 'Compra_Confirmada_Ticto',
+        'value': 16.90,
+        'currency': 'BRL'
+      });
+    }
   </script>
 </body>
 </html>
