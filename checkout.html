@@ -44,6 +44,7 @@
       box-shadow: 0 0 25px rgba(0, 255, 128, 0.2);
       transition: transform 0.3s ease;
       animation: fadeIn 0.8s ease-in-out;
+      position: relative;
     }
 
     .checkout-container:hover {
@@ -133,6 +134,40 @@
       color: #00ff80;
     }
 
+    /* ANIMAÇÃO DE CARREGAMENTO */
+    .loader-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 15px;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .loader {
+      border: 5px solid #333;
+      border-top: 5px solid #00ff80;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    .loader-text {
+      margin-top: 15px;
+      color: #00ff80;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -146,7 +181,7 @@
   </header>
 
   <main>
-    <div class="checkout-container">
+    <div class="checkout-container" id="checkout">
       <h1>StreamMax</h1>
       <p>Filmes, séries e documentários ilimitados com acesso vitalício.</p>
 
@@ -164,6 +199,8 @@
 
   <footer>
     © 2025 StreamMax. Todos os direitos reservados.<br />
+    <a href="termos.html">Termos de Uso</a> • 
+    <a href="privacidade.html">Política de Privacidade</a>
   </footer>
 
   <script>
@@ -173,6 +210,15 @@
         alert("Por favor, insira seu e-mail.");
         return;
       }
+
+      const checkoutBox = document.getElementById("checkout");
+      const loader = document.createElement("div");
+      loader.className = "loader-overlay";
+      loader.innerHTML = `
+        <div class="loader"></div>
+        <div class="loader-text">Processando pagamento...</div>
+      `;
+      checkoutBox.appendChild(loader);
 
       try {
         const res = await fetch("/api/create-preference", {
@@ -186,10 +232,12 @@
           window.location.href = data.init_point;
         } else {
           alert("Erro ao criar o checkout. Tente novamente.");
+          loader.remove();
         }
       } catch (error) {
         console.error(error);
         alert("Erro de conexão. Verifique sua internet e tente novamente.");
+        loader.remove();
       }
     }
   </script>
