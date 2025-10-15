@@ -1,15 +1,13 @@
-// /api/create-preference.js
+import { NextResponse } from "next/server";
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Método não permitido" });
-  }
-
+export async function POST(req) {
   try {
+    const body = await req.json();
+
     const response = await fetch("https://api.mercadopago.com/checkout/preferences", {
       method: "POST",
       headers: {
-        Authorization: "Bearer APP_USR-3433712951445757-101514-092e34f74eaa81e0abf586bca5b45711-567318971",
+        Authorization: "APP_USR-3433712951445757-101514-092e34f74eaa81e0abf586bca5b45711-567318971", // 🔴 Substitua aqui pelo seu token real
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -21,32 +19,31 @@ export default async function handler(req, res) {
             unit_price: 16.9,
           },
         ],
+        payment_methods: {
+          excluded_payment_types: [
+            { id: "ticket" }, // remove boleto
+            { id: "atm" },    // remove caixa eletrônico
+          ],
+          default_payment_method_id: "pix", // Pix como padrão
+        },
         back_urls: {
           success: "https://streammax-site.vercel.app/sucesso.html",
           failure: "https://streammax-site.vercel.app/erro.html",
         },
-         payment_methods: {
-        excluded_payment_types: [
-          { id: "ticket" }, // exclui boleto
-          { id: "atm" }, // exclui débito automático/caixa eletrônico
-          { id: "debit_card" }, // exclui cartão de débito
-        ],
-        default_payment_method_id: "pix", // Pix vem primeiro
-      },
         auto_return: "approved",
       }),
     });
 
     const data = await response.json();
 
-    if (data.init_point) {
-      return res.status(200).json({ init_point: data.init_point });
-    } else {
-      console.error("Erro na resposta do Mercado Pago:", data);
-      return res.status(500).json({ error: "Erro ao criar preferência de pagamento" });
+    if (!response.ok) {
+      console.error("Erro Mercado Pago:", data);
+      return NextResponse.json({ error: "Erro ao criar preferência" }, { status: 500 });
     }
+
+    return NextResponse.json(data);
   } catch (error) {
     console.error("Erro ao criar preferência:", error);
-    return res.status(500).json({ error: "Erro interno do servidor" });
+    return NextResponse.json({ error: "Erro ao criar preferência" }, { status: 500 });
   }
 }
