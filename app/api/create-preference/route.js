@@ -1,44 +1,45 @@
-import { MercadoPagoConfig, Preference } from "mercadopago";
-
-const client = new MercadoPagoConfig({
-  accessToken: process.env.MP_ACCESS_TOKEN // adicione sua chave no painel da Vercel
-});
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
-  try {
-    const { email } = await req.json();
+  const { email } = await req.json();
 
-    const preference = new Preference(client);
-    const result = await preference.create({
-      body: {
+  const accessToken = process.env.MP_ACCESS_TOKEN;
+
+  try {
+    const response = await fetch("https://api.mercadopago.com/checkout/preferences", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        payer: { email },
         items: [
           {
-            title: "StreamMax Plano Vitalício",
+            title: "StreamMax - Plano Vitalício",
             quantity: 1,
             currency_id: "BRL",
-            unit_price: 16.9,
+            unit_price: 16.90,
           },
         ],
-        payer: { email },
         payment_methods: {
-          excluded_payment_types: [{ id: "ticket" }],
-          installments: 1,
+          excluded_payment_types: [{ id: "ticket" }, { id: "atm" }],
+          default_payment_method_id: "pix",
         },
         back_urls: {
           success: "https://streammax-site.vercel.app/sucesso.html",
-          failure: "https://streammax-site.vercel.app/erro.html",
+          failure: "https://streammax-site.vercel.app/checkout.html",
+          pending: "https://streammax-site.vercel.app/checkout.html",
         },
-        auto_return: "approved",
         notification_url: "https://streammax-site.vercel.app/api/webhook-mercadopago",
-      },
+      }),
     });
 
-    return new Response(JSON.stringify({ init_point: result.init_point }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
-  } catch (error) {
-    console.error("Erro ao criar preferência:", error);
-    return new Response(JSON.stringify({ error: "Erro ao criar pagamento" }), { status: 500 });
+    const data = await response.json();
+
+    return NextResponse.json({ init_point: data.init_point });
+  } catch (err) {
+    console.error("Erro ao criar preferência:", err);
+    return NextResponse.json({ error: "Erro ao criar preferência" }, { status: 500 });
   }
 }
