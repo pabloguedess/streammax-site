@@ -5,64 +5,110 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checkout - StreamMax</title>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
     body {
-      background: #0a0a0a;
-      color: white;
-      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #fff;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
-    form {
-      background: #121212;
-      padding: 30px;
-      border-radius: 10px;
-      width: 320px;
-    }
-    input, button {
+    .checkout-box {
+      background-color: #1a1a1a;
+      padding: 40px;
+      border-radius: 12px;
       width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 5px;
-      border: none;
+      max-width: 400px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      text-align: center;
     }
-    button {
-      background-color: #6c63ff;
-      color: white;
+    .checkout-box h1 {
+      color: #ff4040;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+    .checkout-box p {
+      margin-bottom: 25px;
+      color: #ccc;
+    }
+    .checkout-box p strong {
+      color: #00ff80;
+    }
+    .checkout-box input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 20px;
+      background: #242424;
+      color: #fff;
+      font-size: 1rem;
+    }
+    .checkout-box button {
+      background-color: #ff4040;
+      color: #fff;
+      padding: 14px 0;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
       font-weight: bold;
       cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .checkout-box button:hover {
+      background-color: #e63838;
+      transform: scale(1.02);
+    }
+    .footer-text {
+      margin-top: 20px;
+      color: #666;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
-  <h2>StreamMax - Plano Vitalício</h2>
-  <p><strong>De R$179,90 por apenas R$16,90</strong></p>
+  <div class="checkout-box">
+    <h1>StreamMax - Plano Vitalício</h1>
+    <p>De <s>R$179,90</s> por <strong>R$16,90</strong></p>
 
-  <form id="checkoutForm">
     <input type="email" id="email" placeholder="Seu e-mail" required />
-    <button type="submit">Pagar com Pix ou Cartão</button>
-  </form>
+
+    <button onclick="criarCheckout()">Pagar com Pix ou Cartão</button>
+
+    <p class="footer-text">Pagamento seguro via Mercado Pago</p>
+  </div>
 
   <script>
-    document.getElementById("checkoutForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("email").value;
+    async function criarCheckout() {
+      const emailField = document.getElementById("email");
+      const email = emailField.value.trim();
 
-      const response = await fetch("/api/create-preference", {
+      if (!email) {
+        alert("Por favor, insira seu e-mail.");
+        return;
+      }
+
+      const res = await fetch("/api/create-preference", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
 
-      const data = await response.json();
+      const data = await res.json();
       if (data.init_point) {
         window.location.href = data.init_point;
       } else {
-        alert("Erro ao iniciar pagamento!");
+        alert("Erro ao criar o checkout. Tente novamente.");
       }
-    });
+    }
   </script>
 </body>
 </html>
