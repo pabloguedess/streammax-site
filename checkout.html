@@ -7,120 +7,194 @@
   <style>
     * {
       box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      font-family: 'Poppins', sans-serif;
     }
+
     body {
-      background-color: #121212;
+      background: linear-gradient(180deg, #121212, #1a1a1a);
       color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       min-height: 100vh;
-      padding: 20px;
-    }
-    footer {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
       text-align: center;
-      color: #888;
-      padding: 30px;
-      font-size: 14px;
-      border-top: 1px solid #222;
-      margin-top: 40px;
+      padding: 40px 20px;
     }
-    .checkout-box {
-      background-color: #1a1a1a;
+
+    header {
+      background-color: #ff4040;
+      width: 100%;
+      padding: 12px 0;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #fff;
+      box-shadow: 0 0 12px rgba(255, 64, 64, 0.5);
+      border-radius: 0 0 15px 15px;
+    }
+
+    .checkout-container {
+      background-color: #202020;
+      border-radius: 15px;
       padding: 40px;
-      border-radius: 12px;
       width: 100%;
-      max-width: 400px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-      text-align: center;
+      max-width: 450px;
+      box-shadow: 0 0 25px rgba(0, 255, 128, 0.2);
+      transition: transform 0.3s ease;
+      animation: fadeIn 0.8s ease-in-out;
     }
-    .checkout-box h1 {
+
+    .checkout-container:hover {
+      transform: translateY(-5px);
+    }
+
+    h1 {
       color: #ff4040;
-      margin-bottom: 20px;
-      font-size: 1.8rem;
+      font-size: 1.9rem;
+      margin-bottom: 15px;
     }
-    .checkout-box p {
-      margin-bottom: 25px;
+
+    p {
       color: #ccc;
+      margin-bottom: 20px;
     }
-    .checkout-box p strong {
-      color: #00ff80;
+
+    .preco {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
     }
-    .checkout-box input {
+
+    .preco s {
+      color: #888;
+    }
+
+    input {
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       border-radius: 8px;
       border: none;
-      margin-bottom: 20px;
-      background: #242424;
+      outline: none;
+      background-color: #2b2b2b;
       color: #fff;
       font-size: 1rem;
+      margin-bottom: 20px;
+      transition: all 0.3s;
     }
-    .checkout-box button {
+
+    input:focus {
+      box-shadow: 0 0 10px #00ff80;
+    }
+
+    button {
+      width: 100%;
       background-color: #ff4040;
       color: #fff;
-      padding: 14px 0;
-      width: 100%;
+      font-weight: bold;
       border: none;
       border-radius: 8px;
+      padding: 16px;
       font-size: 1.1rem;
-      font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
+      transition: 0.3s;
+      box-shadow: 0 0 12px rgba(255, 64, 64, 0.5);
     }
-    .checkout-box button:hover {
+
+    button:hover {
       background-color: #e63838;
-      transform: scale(1.02);
+      transform: scale(1.05);
     }
-    .footer-text {
-      margin-top: 20px;
-      color: #666;
+
+    .seguro {
+      margin-top: 15px;
+      color: #00ff80;
       font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #888;
+      font-size: 0.9rem;
+      padding-top: 20px;
+      border-top: 1px solid #00ff80;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+
+    footer a:hover {
+      color: #00ff80;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <div class="checkout-box">
-    <h1>StreamMax - Plano Vitalício</h1>
-    <p>De <s>R$179,90</s> por <strong>R$16,90</strong></p>
 
-    <input type="email" id="email" placeholder="Seu e-mail" required />
+  <header>
+    ⚡ Finalize sua compra com segurança e garanta seu acesso vitalício!
+  </header>
 
-    <button onclick="criarCheckout()">Pagar com Pix ou Cartão</button>
+  <main>
+    <div class="checkout-container">
+      <h1>StreamMax</h1>
+      <p>Filmes, séries e documentários ilimitados com acesso vitalício.</p>
 
-    <p class="footer-text">Pagamento seguro via Mercado Pago</p>
-  </div>
+      <div class="preco">
+        De <s>R$179,90</s> por <strong style="color:#00ff80;">R$16,90</strong>
+      </div>
 
-<footer>
-    © <span id="ano"></span> StreamMax. Todos os direitos reservados.
+      <input type="email" id="email" placeholder="Digite seu e-mail" required />
+
+      <button onclick="criarCheckout()">💳 Pagar com Pix ou Cartão</button>
+
+      <p class="seguro">🔒 Pagamento 100% seguro via Mercado Pago</p>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 StreamMax. Todos os direitos reservados.<br />
+    <a href="termos.html">Termos de Uso</a> • 
+    <a href="privacidade.html">Política de Privacidade</a>
   </footer>
 
   <script>
     async function criarCheckout() {
-      const emailField = document.getElementById("email");
-      const email = emailField.value.trim();
-
+      const email = document.getElementById('email').value.trim();
       if (!email) {
         alert("Por favor, insira seu e-mail.");
         return;
       }
 
-      const res = await fetch("/api/create-preference", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
+      try {
+        const res = await fetch("/api/create-preference", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email })
+        });
 
-      const data = await res.json();
-      if (data.init_point) {
-        window.location.href = data.init_point;
-      } else {
-        alert("Erro ao criar o checkout. Tente novamente.");
+        const data = await res.json();
+        if (data.init_point) {
+          window.location.href = data.init_point;
+        } else {
+          alert("Erro ao criar o checkout. Tente novamente.");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Erro de conexão. Verifique sua internet e tente novamente.");
       }
     }
   </script>
+
 </body>
 </html>
