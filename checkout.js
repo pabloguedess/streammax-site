@@ -1,39 +1,29 @@
-document.querySelector("#botao-pagamento").addEventListener("click", async () => {
-  const email = document.querySelector("#email").value.trim();
-  const botao = document.querySelector("#botao-pagamento");
-  const msg = document.querySelector("#mensagem");
+// checkout.js
 
-  if (!email) {
-    alert("Por favor, insira seu e-mail antes de continuar.");
-    return;
-  }
-
-  botao.disabled = true;
-  botao.innerText = "🔄 Processando pagamento...";
-  msg.innerText = "";
+async function pagar() {
+  const btn = document.getElementById("btnComprar");
+  btn.disabled = true;
+  btn.innerText = "Gerando pagamento...";
 
   try {
     const res = await fetch("/api/create-preference", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
     });
 
     const data = await res.json();
 
     if (data.init_point) {
-      msg.innerText = "Redirecionando para o Mercado Pago...";
-      setTimeout(() => {
-        window.location.href = data.init_point;
-      }, 1000);
+      window.location.href = data.init_point;
     } else {
-      console.error("Erro:", data);
       alert("Erro ao criar pagamento. Tente novamente.");
+      console.error(data);
     }
-  } catch (err) {
-    alert("Erro de conexão. Verifique sua internet e tente novamente.");
+  } catch (error) {
+    alert("Erro de conexão com o servidor.");
+    console.error(error);
   } finally {
-    botao.disabled = false;
-    botao.innerText = "💳 Pagar com Pix ou Cartão";
+    btn.disabled = false;
+    btn.innerText = "Comprar agora";
   }
-});
+}
