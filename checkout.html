@@ -2,34 +2,67 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checkout - StreamMax</title>
-  <script>
-    async function pagar() {
-      const email = document.getElementById("email").value;
-      const res = await fetch("/api/create-preference", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
-      });
-
-      const data = await res.json();
-      if (data.init_point) {
-        window.location.href = data.init_point;
-      } else {
-        alert("Erro ao criar pagamento!");
-      }
-    }
-  </script>
   <style>
-    body { background:#000; color:#fff; font-family:Arial; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; }
-    input { padding:10px; width:250px; margin-bottom:15px; border-radius:8px; border:none; }
-    button { background:#6d00ff; color:white; border:none; padding:12px 30px; border-radius:8px; cursor:pointer; font-size:16px; }
+    body {
+      background: #0a0a0a;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    form {
+      background: #121212;
+      padding: 30px;
+      border-radius: 10px;
+      width: 320px;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      background-color: #6c63ff;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <h1>StreamMax Plano Vitalício</h1>
-  <p>De <s>R$179,90</s> por <strong>R$16,90</strong></p>
-  <input type="email" id="email" placeholder="Digite seu e-mail" required />
-  <button onclick="pagar()">Pagar com Mercado Pago</button>
+  <h2>StreamMax - Plano Vitalício</h2>
+  <p><strong>De R$179,90 por apenas R$16,90</strong></p>
+
+  <form id="checkoutForm">
+    <input type="email" id="email" placeholder="Seu e-mail" required />
+    <button type="submit">Pagar com Pix ou Cartão</button>
+  </form>
+
+  <script>
+    document.getElementById("checkoutForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+
+      const response = await fetch("/api/create-preference", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+      if (data.init_point) {
+        window.location.href = data.init_point;
+      } else {
+        alert("Erro ao iniciar pagamento!");
+      }
+    });
+  </script>
 </body>
 </html>
