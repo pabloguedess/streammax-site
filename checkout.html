@@ -1,245 +1,143 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Checkout - StreamMax</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagamento | StreamMax</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      background: linear-gradient(180deg, #121212, #1a1a1a);
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, #000000 40%, #0a0a0a);
       color: #fff;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      text-align: center;
-      padding: 40px 20px;
-    }
-
-    header {
-      background-color: #ff4040;
-      width: 100%;
-      padding: 12px 0;
-      font-weight: bold;
-      font-size: 1rem;
-      color: #fff;
-      box-shadow: 0 0 12px rgba(255, 64, 64, 0.5);
-      border-radius: 0 0 15px 15px;
-    }
-
-    .checkout-container {
-      background-color: #202020;
-      border-radius: 15px;
-      padding: 40px;
-      width: 100%;
-      max-width: 450px;
-      box-shadow: 0 0 25px rgba(0, 255, 128, 0.2);
-      transition: transform 0.3s ease;
-      animation: fadeIn 0.8s ease-in-out;
-      position: relative;
-    }
-
-    .checkout-container:hover {
-      transform: translateY(-5px);
-    }
-
-    h1 {
-      color: #ff4040;
-      font-size: 1.9rem;
-      margin-bottom: 15px;
-    }
-
-    p {
-      color: #ccc;
-      margin-bottom: 20px;
-    }
-
-    .preco {
-      font-size: 1.3rem;
-      margin-bottom: 25px;
-    }
-
-    .preco s {
-      color: #888;
-    }
-
-    input {
-      width: 100%;
-      padding: 14px;
-      border-radius: 8px;
-      border: none;
-      outline: none;
-      background-color: #2b2b2b;
-      color: #fff;
-      font-size: 1rem;
-      margin-bottom: 20px;
-      transition: all 0.3s;
-    }
-
-    input:focus {
-      box-shadow: 0 0 10px #00ff80;
-    }
-
-    button {
-      width: 100%;
-      background-color: #ff4040;
-      color: #fff;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      padding: 16px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 0 12px rgba(255, 64, 64, 0.5);
-    }
-
-    button:hover {
-      background-color: #e63838;
-      transform: scale(1.05);
-    }
-
-    .seguro {
-      margin-top: 15px;
-      color: #00ff80;
-      font-size: 0.9rem;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      color: #888;
-      font-size: 0.9rem;
-      padding-top: 20px;
-      border-top: 1px solid #00ff80;
-      width: 100%;
-      max-width: 600px;
-    }
-
-    footer a {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 5px;
-    }
-
-    footer a:hover {
-      color: #00ff80;
-    }
-
-    /* ANIMAÇÃO DE CARREGAMENTO */
-    .loader-overlay {
-      position: absolute;
-      inset: 0;
-      background-color: rgba(0, 0, 0, 0.8);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      border-radius: 15px;
-      animation: fadeIn 0.3s ease-in-out;
+      height: 100vh;
+      margin: 0;
     }
 
-    .loader {
-      border: 5px solid #333;
-      border-top: 5px solid #00ff80;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1s linear infinite;
+    .checkout-container {
+      background: #111;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 255, 130, 0.2);
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
     }
 
-    .loader-text {
-      margin-top: 15px;
-      color: #00ff80;
-      font-weight: 600;
-      font-size: 1rem;
+    h1 {
+      color: #00ff7f;
+      margin-bottom: 10px;
     }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    p {
+      color: #ccc;
+      font-size: 15px;
+      margin-bottom: 25px;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      margin-bottom: 15px;
+      background: #1b1b1b;
+      color: white;
+      font-size: 15px;
+    }
+
+    button {
+      background: linear-gradient(90deg, #00ff7f, #00b050);
+      border: none;
+      color: #000;
+      font-weight: bold;
+      font-size: 16px;
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #00b050, #00ff7f);
+      transform: scale(1.02);
+    }
+
+    .price {
+      font-size: 22px;
+      color: #00ff7f;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 15px;
+      color: #666;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
+  <div class="checkout-container">
+    <h1>StreamMax</h1>
+    <p>Plano vitalício com acesso ilimitado a filmes e séries.</p>
+    <div class="price">De <s>R$179,90</s> por <strong>R$16,90</strong></div>
 
-  <header>
-    ⚡ Finalize sua compra com segurança e garanta seu acesso vitalício!
-  </header>
+    <input type="email" id="email" placeholder="Digite seu e-mail" required>
+    <button id="payButton">💳 Pagar com Pix ou Cartão</button>
+    <p id="status" style="margin-top:10px;color:#999;"></p>
+  </div>
 
-  <main>
-    <div class="checkout-container" id="checkout">
-      <h1>StreamMax</h1>
-      <p>Filmes, séries e documentários ilimitados com acesso vitalício.</p>
-
-      <div class="preco">
-        De <s>R$179,90</s> por <strong style="color:#00ff80;">R$16,90</strong>
-      </div>
-
-      <input type="email" id="email" placeholder="Digite seu e-mail" required />
-
-      <button onclick="criarCheckout()">💳 Pagar com Pix ou Cartão</button>
-
-      <p class="seguro">🔒 Pagamento 100% seguro via Mercado Pago</p>
-    </div>
-  </main>
-
-  <footer>
-    © 2025 StreamMax. Todos os direitos reservados.<br />
-
-  </footer>
+  <footer>© 2025 StreamMax. Todos os direitos reservados.</footer>
 
   <script>
-    async function criarCheckout() {
-      const email = document.getElementById('email').value.trim();
+    const payButton = document.getElementById("payButton");
+    const statusMsg = document.getElementById("status");
+
+    payButton.addEventListener("click", async () => {
+      const email = document.getElementById("email").value.trim();
       if (!email) {
-        alert("Por favor, insira seu e-mail.");
+        alert("Por favor, digite seu e-mail.");
         return;
       }
 
-      const checkoutBox = document.getElementById("checkout");
-      const loader = document.createElement("div");
-      loader.className = "loader-overlay";
-      loader.innerHTML = `
-        <div class="loader"></div>
-        <div class="loader-text">Processando pagamento...</div>
-      `;
-      checkoutBox.appendChild(loader);
+      statusMsg.textContent = "🔄 Processando pagamento...";
+      payButton.disabled = true;
 
       try {
-        const res = await fetch("/api/create-preference", {
+        const response = await fetch("/api/create-preference", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email })
+          body: JSON.stringify({
+            email: email,
+            title: "StreamMax Vitalício",
+            quantity: 1,
+            price: 16.90,
+          }),
         });
 
-        const data = await res.json();
+        const data = await response.json();
         if (data.init_point) {
           window.location.href = data.init_point;
         } else {
-          alert("Erro ao criar o checkout. Tente novamente.");
-          loader.remove();
+          alert("Erro ao gerar pagamento. Tente novamente.");
+          console.error(data);
         }
       } catch (error) {
-        console.error(error);
         alert("Erro de conexão. Verifique sua internet e tente novamente.");
-        loader.remove();
+        console.error(error);
+      } finally {
+        payButton.disabled = false;
+        statusMsg.textContent = "";
       }
-    }
+    });
   </script>
-
 </body>
 </html>
