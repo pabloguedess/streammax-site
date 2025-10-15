@@ -1,49 +1,56 @@
-import { NextResponse } from "next/server";
+import MercadoPago from "mercadopago";
 
-export async function POST(req) {
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Método não permitido" });
+  }
+
   try {
-    const body = await req.json();
+    const { email } = req.body;
 
-    const response = await fetch("https://api.mercadopago.com/checkout/preferences", {
-      method: "POST",
-      headers: {
-        Authorization: "APP_USR-3433712951445757-101514-092e34f74eaa81e0abf586bca5b45711-567318971", // 🔴 Substitua aqui pelo seu token real
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        items: [
-          {
-            title: "Plano vitalício StreamMax",
-            quantity: 1,
-            currency_id: "BRL",
-            unit_price: 16.9,
-          },
-        ],
-        payment_methods: {
-          excluded_payment_types: [
-            { id: "ticket" }, // remove boleto
-            { id: "atm" },    // remove caixa eletrônico
-          ],
-          default_payment_method_id: "pix", // Pix como padrão
-        },
-        back_urls: {
-          success: "https://streammax-site.vercel.app/sucesso.html",
-          failure: "https://streammax-site.vercel.app/erro.html",
-        },
-        auto_return: "approved",
-      }),
-    });
+    const token = process.env.MP_ACCESS_TOKEN;
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.error("Erro Mercado Pago:", data);
-      return NextResponse.json({ error: "Erro ao criar preferência" }, { status: 500 });
+    if (!token) {
+      console.error("❌ Token do Mercado Pago não encontrado.");
+      return res.status(500).json({ error: "Token ausente" });
     }
 
-    return NextResponse.json(data);
+    MercadoPago.configure({
+      access_token: token,
+    });
+
+    const preference = await MercadoPago.preferences.create({
+      items: [
+        {
+          title: "Plano Vitalício StreamMax",
+          quantity: 1,
+          unit_price: 16.9,
+          currency_id: "BRL",
+        },
+      ],
+      payer: {
+        email,
+      },
+      payment_methods: {
+        excluded_payment_types: [
+          { id: "ticket" },
+          { id: "atm" },
+        ],
+        installments: 1,
+      },
+      back_urls: {
+        success: "https://streammax-site.vercel.app/sucesso",
+        failure: "https://streammax-site.vercel.app/erro",
+        pending: "https://streammax-site.vercel.app/pendente",
+      },
+      auto_return: "approved",
+    });
+
+    return res.status(200).json({
+      init_point: preference.body.init_point,
+    });
   } catch (error) {
-    console.error("Erro ao criar preferência:", error);
-    return NextResponse.json({ error: "Erro ao criar preferência" }, { status: 500 });
+    console.error("❌ Erro na rota /api/create-preference:", error);
+    return res.status(500).json({ error: "Erro interno no servidor" });
   }
 }
