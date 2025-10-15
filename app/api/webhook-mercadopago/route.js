@@ -2,38 +2,49 @@ import fs from "fs";
 import path from "path";
 import { NextResponse } from "next/server";
 
-export async function POST(req) {
-  const body = await req.json();
+export async function POST(request) {
+  try {
+    const data = await request.json();
 
-  if (body.type === "payment") {
-    const paymentId = body.data.id;
+    // Apenas processa pagamentos aprovados
+    if (data.type === "payment") {
+      const paymentId = data.data.id;
 
-    const res = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
-      headers: {
-        Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}`,
-      },
-    });
+      // Pega detalhes da transação no Mercado Pago
+      const response = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
+        headers: {
+          Authorization: `Bearer ${process.env.MERCADOPAGO_ACCESS_TOKEN}`,
+        },
+      });
+      const payment = await response.json();
 
-    const paymentData = await res.json();
+      if (payment.status === "approved" && payment.payer?.email) {
+        const email = payment.payer.email.trim().toLowerCase();
+        const usuariosPath = path.join(process.cwd(), "app", "membros", "usuarios.json");
 
-    if (paymentData.status === "approved") {
-      const email = paymentData.payer.email;
-      const password = Math.random().toString(36).substring(2, 10);
-      const user = { email, password };
+        let usuarios = [];
+        if (fs.existsSync(usuariosPath)) {
+          usuarios = JSON.parse(fs.readFileSync(usuariosPath, "utf8"));
+        }
 
-      const filePath = path.join(process.cwd(), "membros", "usuarios.json");
-      let users = [];
+        // Verifica se o e-mail já está cadastrado
+        const exists = usuarios.some((u) => u.email === email);
+        if (!exists) {
+          usuarios.push({
+            email,
+            senha: Math.random().toString(36).slice(-8), // senha aleatória
+            dataCadastro: new Date().toISOString(),
+          });
 
-      if (fs.existsSync(filePath)) {
-        users = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+          fs.writeFileSync(usuariosPath, JSON.stringify(usuarios, null, 2));
+          console.log(`✅ Novo usuário liberado: ${email}`);
+        }
       }
-
-      users.push(user);
-      fs.writeFileSync(filePath, JSON.stringify(users, null, 2));
-
-      console.log(`✅ Usuário criado: ${email}`);
     }
-  }
 
-  return NextResponse.json({ status: "ok" });
+    return NextResponse.json({ received: true });
+  } catch (error) {
+    console.error("Erro no webhook:", error);
+    return NextResponse.json({ error: "Erro interno" }, { status: 500 });
+  }
 }
