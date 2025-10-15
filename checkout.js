@@ -1,37 +1,51 @@
-import mercadopago from 'mercadopago';
+// checkout.js — StreamMax Checkout
 
-mercadopago.configure({
-  access_token: process.env.MP_ACCESS_TOKEN
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("checkout-form");
+  const emailInput = document.getElementById("email");
+  const payButton = document.getElementById("pay-button");
+  const statusText = document.getElementById("status");
+
+  // Quando o cliente clica em "Pagar com Pix ou Cartão"
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = emailInput.value.trim();
+
+    if (!email) {
+      alert("Por favor, digite um e-mail válido.");
+      return;
+    }
+
+    payButton.disabled = true;
+    statusText.textContent = "Processando pagamento...";
+
+    try {
+      // Cria a preferência de pagamento
+      const response = await fetch("/api/create-preference", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao criar pagamento.");
+      }
+
+      const data = await response.json();
+
+      if (data.init_point) {
+        // Redireciona o cliente para o checkout seguro do Mercado Pago
+        window.location.href = data.init_point;
+      } else {
+        throw new Error("Não foi possível iniciar o pagamento.");
+      }
+
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Erro de conexão. Verifique sua internet e tente novamente.");
+      payButton.disabled = false;
+      statusText.textContent = "";
+    }
+  });
 });
-
-export default async function handler(req, res) {
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Método não permitido' });
-
-  try {
-    const { email } = req.body;
-
-    const preference = {
-      items: [
-        {
-          title: "StreamMax Vitalício",
-          quantity: 1,
-          currency_id: "BRL",
-          unit_price: 16.90
-        }
-      ],
-      payer: { email },
-      back_urls: {
-        success: "https://streammax-site.vercel.app/sucesso",
-        failure: "https://streammax-site.vercel.app/erro",
-      },
-      auto_return: "approved",
-      notification_url: "https://streammax-site.vercel.app/api/webhook-mercadopago"
-    };
-
-    const response = await mercadopago.preferences.create(preference);
-    return res.status(200).json({ init_point: response.body.init_point });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Erro ao criar checkout' });
-  }
-}
