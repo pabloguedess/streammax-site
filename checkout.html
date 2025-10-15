@@ -1,42 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pagamento | StreamMax</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout - StreamMax</title>
+  <link rel="icon" href="/favicon.ico" />
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at top, #000000 40%, #0a0a0a);
-      color: #fff;
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background: linear-gradient(180deg, #000000 0%, #101010 100%);
+      color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
+      min-height: 100vh;
     }
 
     .checkout-container {
-      background: #111;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 0 25px rgba(0, 255, 130, 0.2);
-      max-width: 420px;
+      max-width: 400px;
       width: 90%;
+      background: #141414;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+      padding: 30px;
+      margin-top: 60px;
       text-align: center;
+      animation: fadeIn 0.8s ease;
     }
 
-    h1 {
-      color: #00ff7f;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .checkout-container h2 {
+      font-size: 1.8rem;
+      color: #ff3b3b;
       margin-bottom: 10px;
     }
 
-    p {
+    .checkout-container p {
+      font-size: 1.1rem;
       color: #ccc;
-      font-size: 15px;
-      margin-bottom: 25px;
+    }
+
+    s {
+      color: #777;
+    }
+
+    strong {
+      color: #00ff88;
+      font-size: 1.3rem;
     }
 
     input {
@@ -45,99 +60,61 @@
       border-radius: 8px;
       border: none;
       outline: none;
-      margin-bottom: 15px;
-      background: #1b1b1b;
+      margin-top: 15px;
+      font-size: 1rem;
+      background: #1f1f1f;
       color: white;
-      font-size: 15px;
+      text-align: center;
     }
 
     button {
-      background: linear-gradient(90deg, #00ff7f, #00b050);
-      border: none;
-      color: #000;
-      font-weight: bold;
-      font-size: 16px;
       width: 100%;
+      margin-top: 20px;
       padding: 14px;
+      background: linear-gradient(90deg, #ff0000, #ff4d4d);
+      color: white;
+      border: none;
       border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
     }
 
     button:hover {
-      background: linear-gradient(90deg, #00b050, #00ff7f);
-      transform: scale(1.02);
-    }
-
-    .price {
-      font-size: 22px;
-      color: #00ff7f;
-      font-weight: bold;
-      margin: 10px 0;
+      transform: scale(1.03);
+      background: linear-gradient(90deg, #ff4d4d, #ff0000);
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
     }
 
     footer {
-      position: absolute;
-      bottom: 15px;
-      color: #666;
-      font-size: 14px;
+      margin-top: auto;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      padding: 20px 0;
+    }
+
+    #mensagem {
+      margin-top: 15px;
+      color: #00ff88;
+      font-size: 0.95rem;
     }
   </style>
 </head>
 <body>
-  <div class="checkout-container">
-    <h1>StreamMax</h1>
-    <p>Plano vitalício com acesso ilimitado a filmes e séries.</p>
-    <div class="price">De <s>R$179,90</s> por <strong>R$16,90</strong></div>
+  <section class="checkout-container">
+    <h2>Plano Vitalício StreamMax</h2>
+    <p>De <s>R$179,90</s> por <strong>R$16,90</strong></p>
 
-    <input type="email" id="email" placeholder="Digite seu e-mail" required>
-    <button id="payButton">💳 Pagar com Pix ou Cartão</button>
-    <p id="status" style="margin-top:10px;color:#999;"></p>
-  </div>
-<script src="./checkout.js"></script>
+    <input type="email" id="email" placeholder="Digite seu e-mail" required />
+    <button id="botao-pagamento">💳 Pagar com Pix ou Cartão</button>
+
+    <p id="mensagem"></p>
+  </section>
+
   <footer>© 2025 StreamMax. Todos os direitos reservados.</footer>
 
-  <script>
-    const payButton = document.getElementById("payButton");
-    const statusMsg = document.getElementById("status");
-
-    payButton.addEventListener("click", async () => {
-      const email = document.getElementById("email").value.trim();
-      if (!email) {
-        alert("Por favor, digite seu e-mail.");
-        return;
-      }
-
-      statusMsg.textContent = "🔄 Processando pagamento...";
-      payButton.disabled = true;
-
-      try {
-        const response = await fetch("/api/create-preference", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: email,
-            title: "StreamMax Vitalício",
-            quantity: 1,
-            price: 16.90,
-          }),
-        });
-
-        const data = await response.json();
-        if (data.init_point) {
-          window.location.href = data.init_point;
-        } else {
-          alert("Erro ao gerar pagamento. Tente novamente.");
-          console.error(data);
-        }
-      } catch (error) {
-        alert("Erro de conexão. Verifique sua internet e tente novamente.");
-        console.error(error);
-      } finally {
-        payButton.disabled = false;
-        statusMsg.textContent = "";
-      }
-    });
-  </script>
+  <script src="checkout.js"></script>
 </body>
 </html>
