@@ -1,5 +1,3 @@
-// checkout.js
-
 async function pagar() {
   const btn = document.getElementById("btnComprar");
   btn.disabled = true;
