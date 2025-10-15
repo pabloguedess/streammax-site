@@ -48,15 +48,38 @@
     <button class="logout" onclick="logout()">Sair</button>
   </div>
 
-  <script>
-    const user = localStorage.getItem('usuario');
-    if (!user) {
-      window.location.href = 'login.html';
+<script>
+    async function validarUsuario() {
+      const email = localStorage.getItem("usuario");
+      const painel = document.getElementById("emailUsuario");
+
+      if (!email) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      try {
+        const res = await fetch("/membros/usuarios.json?cache=" + Date.now());
+        const data = await res.json();
+
+        if (data.usuarios.includes(email)) {
+          painel.textContent = `Usuário logado: ${email}`;
+        } else {
+          localStorage.removeItem("usuario");
+          window.location.href = "login.html";
+        }
+      } catch (err) {
+        alert("Erro ao validar usuário.");
+        window.location.href = "login.html";
+      }
     }
+
     function logout() {
-      localStorage.removeItem('usuario');
-      window.location.href = 'login.html';
+      localStorage.removeItem("usuario");
+      window.location.href = "login.html";
     }
+
+    validarUsuario();
   </script>
 </body>
 </html>
