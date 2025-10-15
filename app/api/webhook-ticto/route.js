@@ -14,13 +14,19 @@ export async function POST(request) {
 
     return new Response(
       JSON.stringify({ message: "Webhook processado com sucesso", status }),
-      { status: 200, headers: { "Content-Type": "application/json" } }
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
     );
   } catch (error) {
     console.error("❌ Erro ao processar webhook:", error);
     return new Response(
       JSON.stringify({ error: "Erro interno do servidor" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
     );
   }
 }
