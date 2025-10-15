@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel do Membro - StreamMax</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    h1 span { color: #00ff80; }
+    .content {
+      margin-top: 20px;
+      background-color: #1f1f1f;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    iframe {
+      width: 100%;
+      height: 250px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+    button.logout {
+      background-color: #ff4040;
+      color: #fff;
+      margin-top: 20px;
+    }
+    button.logout:hover {
+      background-color: #e60000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Bem-vindo ao <span>StreamMax</span> 🍿</h1>
+    <p>Aproveite seu acesso vitalício!</p>
+
+    <div class="content">
+      <h3>📲 Baixe o aplicativo oficial</h3>
+      <a href="https://www.mediafire.com/file/2ar78m8rct3lbur/UniTV_Free_5.0.0.apk/file" target="_blank">⬇️ Download do App</a>
+
+      <h3 style="margin-top:20px;">⚙️ Coloque o arquivo .config antes de abrir o app</h3>
+      <a href="https://www.mediafire.com/file/q8z1qys0eaqkq9q/.config/file" target="_blank">📁 Baixar .config</a>
+
+      <p style="margin-top:20px;">Tutorial rápido de instalação:</p>
+      <iframe src="https://www.youtube.com/embed/example" allowfullscreen></iframe>
+    </div>
+
+    <button class="logout" onclick="logout()">Sair</button>
+  </div>
+
+  <script>
+    const user = localStorage.getItem('usuario');
+    if (!user) {
+      window.location.href = 'login.html';
+    }
+    function logout() {
+      localStorage.removeItem('usuario');
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>
