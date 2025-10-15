@@ -17,28 +17,29 @@
     <a href="../index.html">← Voltar ao site</a>
   </div>
 
-  <script>
-    function login() {
-      const email = document.getElementById('email').value.trim().toLowerCase();
-      const msg = document.getElementById('msg');
-      if (!email) return alert("Digite seu e-mail.");
+    <script>
+    async function login() {
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const erro = document.getElementById("erro");
 
-      fetch('usuarios.json')
-        .then(res => res.json())
-        .then(data => {
-          const permitido = data.usuarios.includes(email);
-          if (permitido) {
-            localStorage.setItem('usuario', email);
-            window.location.href = 'painel.html';
-          } else {
-            msg.textContent = '❌ E-mail não encontrado. Aguarde a confirmação da compra.';
-            msg.style.color = '#ff4040';
-          }
-        })
-        .catch(() => {
-          msg.textContent = 'Erro ao verificar. Tente novamente.';
-          msg.style.color = '#ff4040';
-        });
+      if (!email) {
+        erro.textContent = "Digite seu e-mail!";
+        return;
+      }
+
+      try {
+        const res = await fetch("/membros/usuarios.json?cache=" + Date.now());
+        const data = await res.json();
+
+        if (data.usuarios.includes(email)) {
+          localStorage.setItem("usuario", email);
+          window.location.href = "painel.html";
+        } else {
+          erro.textContent = "E-mail não encontrado ou pagamento não confirmado.";
+        }
+      } catch (e) {
+        erro.textContent = "Erro ao verificar usuário.";
+      }
     }
   </script>
 </body>
