@@ -25,11 +25,14 @@ export default async function handler(req, res) {
           success: "https://streammax-site.vercel.app/sucesso.html",
           failure: "https://streammax-site.vercel.app/erro.html",
         },
-        payment_methods: {
-          excluded_payment_types: [
-            { id: "ticket" } // remove boleto
-          ],
-        },
+         payment_methods: {
+        excluded_payment_types: [
+          { id: "ticket" }, // exclui boleto
+          { id: "atm" }, // exclui débito automático/caixa eletrônico
+          { id: "debit_card" }, // exclui cartão de débito
+        ],
+        default_payment_method_id: "pix", // Pix vem primeiro
+      },
         auto_return: "approved",
       }),
     });
